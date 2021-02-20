@@ -1,0 +1,164 @@
+//Recorrer un array. 3 tipos:
+
+ /*Bucle for: Los Bucles ofrecen una manera rapida y sencills de hacer algo repetidamente. Esta estructura consta 
+ de tres parametros, seria:
+ 1) Desde donde, desde el valor 0 (i=0)puede ir let, var o nada.
+ 2) Le decimos que va a ir desde 0 hasta valor x  y como se va a ejecutar ese bucle incrementandose de 1 en 1 (i<5).
+ 3) i++
+Ejemplo: for(i=0; i<5; i++){     Acá va a contar de cero a cinco y es lo q va a imprimir en consola.
+            console.log(i);
+}
+
+Arreglo: Un arreglo en javadcript se define con cochetes [], adentro pueden ir numeros, strings, objetos.
+Acceder a la pocision de un arreglo: Con [] y colocar 0 en adelante.
+var colores = ["rojo", "azul", "verde"];
+for(i=0; i<colores.length; i++){
+    console.log(colores[i]);  ==> va a imprimir los tres colores, si no llamo al array me imprime la cantidad 
+                                    de elementos que hay es decir 0, 1, 2.
+}
+
+Método ForEach: El orden es:         colores.forEach(elemento =>{
+                                        console.log(elemento)
+                                        });
+1) El nombre del arreglo
+2) El método 
+3) Los elementos que voy a mostrar
+
+Con función: Se colocaran dos paramentros. El nombre del arreglo y el indice. Lo que hace esta tomando 
+el arreglo de colores y le decimos "mostrame el indice" 0(index) para el primer elemento "rojo"(colores)
+
+
+colores.forEach(function (colores, index){
+    console.log(`${index} => ${colores}`) ó console.log(index + "=>" + colores)
+});
+
+var frase = ["me", "gustan", "los", "bizcochos"];
+var acumulador = " ";
+
+frase.forEach((elemento) => {
+    acumulador = acumulador + " " + elemento;
+})
+console.log(acumulador);
+
+
+Método Map: Crea un neuvo array con los resultados de la llamada a la funcion indicada 
+            aplicada a c/u de los elementos. (en general transforma una estructura de datos
+            en otra cosa).
+Ejercicio: Creamos un arreglo de objetos, poner el nombre del arreglo.map, ponemos funcion y 
+en los(nombre del arreglo), luego volvemos a hacer referencia al arreglo. y el elemento del objeto que queremos
+llamar. para que me imprima cada dia. Map me esta recorriendo todo el arreglo y le digo, para cada    elemento
+mostrame el numero y dia. Me devuelve           
+
+
+ dias = [
+    {nro:1, dia:"LUNES"},                  
+    {nro:2, dia:"MARTES"},                  
+    {nro:3, dia:"MIERCOLES"},               
+    {nro:4, dia:"JUEVES"},
+    {nro:5, dia:"VIERNES"}
+];  
+
+dias.map(function(dias){ 
+console.log(dias.nro + "=>" + dias.dia);            
+});             
+
+Ejercicios:
+
+//funcion que me devuelva su negativo, con el mismo array se sumen todos
+
+let arregloDeNumeros = [3, 8, 10, -5, 54, 123, 7, 2];
+
+function numeroNegativo(arregloNumerico) {
+    var resultado = [];
+    arregloNumerico.forEach((numero) => {
+        resultado.push(numero * -1);
+    })
+    return resultado;
+}
+console.log(numeroNegativo(arregloDeNumeros));
+
+// Con el mismo array se sumen todos
+
+function sumaNumerica(arregloNumerico) {
+    let suma = 0;
+    arregloNumerico.forEach((numero) => {
+        suma += numero;
+    })
+    return suma;
+}
+console.log(sumaNumerica(arregloDeNumeros));
+
+// Con el array arregloDeAutos sumar todos los autos por su precio haciendo con el for y el forEach
+
+function sumaDeTodosLosAutos(arregloDeAutos){ 
+  var suma = 0;
+  for(let i = 0; i < arregloDeAutos.length; i++){
+      suma = suma + arregloDeAutos[i].precio;
+  }
+  return suma;
+}
+console.log(sumaDeTodosLosAutos(arregloDeAutos));
+
+
+var suma = 0;
+arregloDeAutos.forEach((auto) => {
+  suma = suma + auto.precio
+});
+console.log(suma);
+
+EJERCICIO DE COLOCAR PUNTO EN LOS MILES:
+
+HTML: <input type="text" class="form-control" id="separadorMiles" placeholder="Separador de Miles">
+
+/* Tomamos la referencia del imput en html generando una variable*/
+var separador = document.getElementById("separadorMiles");
+/*addEventListener => Le agregamos un evento al sepatador para que cada vez que alguien haga un keyup se ejecute  
+la funcion. VAmos a poner un evento "e", se va a capturar ese evento cada vez que alguien haga un keyup */
+separador.addEventListener('keyup', (e) => {
+    /*Primero necesitariamos la entrada de lo que estamos tecleando, generamos una variable e.target(para tomar la referencia
+        de lo que estamos tecleando del impur en html y el value que seria el valor)usamos split para separarlo
+        en array por puntito y el join para volverlo a juntar   */
+    var entrada = e.target.value.split('.').join('');
+    /*y ahora aplico el reverse */
+    entrada = entrada.split('').reverse();
+    /* Hasta aca tenemos entrada invertida. Ahora vamos a crear una variable de salida=array y una
+    variable auxiliar que nos va a servir para ir metiendo todos los datos que son string */
+    var salida = [];
+    var aux = '';
+    /* Ahora la pagina va  ser igual, con el math lo redondeamos hacia arriba, esto lo que hara será, 
+    contar las secciones que hay y dividirlo en 3  */
+    var pagina = Math.ceil(entrada.length / 3);
+    /*Ahora nos interesa ir repasando la pagina,es decir, iremos repasadno 1,2 y 3 para poder meter
+    todos los datos en ese arreglo, en el for i va a ser menos que paginas para 
+    ir repasando todo e i aumentara.*/
+    for (let i = 0; i < pagina; i++) {
+        /* Dentro vamos a tener otro for, es el que nos ayudara a repasar cada elemento, lo que 
+        vayamos metiendo en el imput. j va a ser menos de 3 porque cada vez que haya una seccion 
+         hay 3 elementos*/
+        for (let j = 0; j < 3; j++) {
+            /* Si entrada (accedemos al array con [], j + (i * 3)es distinto a undefined entonces
+             aux ira metiendo cada tres siglas ira metiendole al aux. */
+            if (entrada[j + (i * 3)] != undefined) {
+                aux += entrada[j + (i * 3)];
+            }
+        }
+        salida.push(aux);
+        /* a aun lo vamos a resetear. Hasta aca esta separando las secciones por inversa */
+        aux = '';
+        /* Hora loq ue haremos es meter el aux, que su salida. Cada vez que vaya ejecutando
+        el codigo va a ir metiendo todo el auxilar que son secciones de 3 inversas a la salida  */
+        /* Lo que nos queda de este codigo seria meter el resultado de la salida a la referencia 
+        que tenemos del input. El array que teniamos separado lo vamos a unir por punto
+        lo que hace join ejemplo (1.2.3), en este caso seria ["123", "123"] = "123.123".
+        Ponemosde vuelta un split porque esta inverso y luego aplicamos un reverse que invertira
+        el array, cuando hagamos el split serararemos de vuelta el array y se unira en join. */
+
+        e.target.value = salida.join('.').split("").reverse().join('');
+        //["432", "10"]= "432.10" = ["4","3","2",".","1","0"]=["0","1",".","2","3","4"]= 01.234
+        /*Teniendo ["432", "10"],(lo estoy poniendo de forma decendente y tiene q estar asendente) 
+        cuando se haga el join tendremos "432.10", entonces se aplicaria otra
+        vez el split para separar el array separarlo por cada uno es decir ["4","3","2",".","1","0"]
+        y hacemos el reverse quedando["0","1",".","2","3","4", volvermos a aplicar el join 
+        y quedaria  01.234 y asi ya estaria resuelto*/
+    }
+}, false);
